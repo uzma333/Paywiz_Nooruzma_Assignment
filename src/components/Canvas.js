@@ -6,6 +6,9 @@ function Canvas({ tool, color, brushSize, fontSize }) {
   const ctxRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
 
   
   useEffect(() => {
@@ -17,9 +20,17 @@ function Canvas({ tool, color, brushSize, fontSize }) {
     ctx.strokeStyle = color;
     ctx.lineWidth = brushSize;
     ctxRef.current = ctx;
-
+     saveState();
    
   }, [brushSize,color]);
+  const saveState = () => {
+    const canvas = canvasRef.current;
+    const dataUrl = canvas.toDataURL();
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(dataUrl);
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  };
 
   
   
@@ -37,6 +48,7 @@ function Canvas({ tool, color, brushSize, fontSize }) {
       ctxRef.current.closePath();
     }
     setDrawing(false);
+    saveState();
     
   };
 
@@ -46,7 +58,7 @@ function Canvas({ tool, color, brushSize, fontSize }) {
     const x = e.clientX;
     const y = e.clientY;
     ctxRef.current.strokeStyle = color;
-    ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+   
 
 
     if (tool === "pencil") {
@@ -91,6 +103,7 @@ function Canvas({ tool, color, brushSize, fontSize }) {
         ctxRef.current.font = `${fontSize}px Arial`;
         ctxRef.current.fillStyle = color;
         ctxRef.current.fillText(text, e.clientX, e.clientY);
+        saveState();
          
       }
     }
