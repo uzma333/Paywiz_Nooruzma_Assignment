@@ -1,67 +1,65 @@
-import React from 'react'
-import pencil from "../Assests/pencil.png";
-import eraser from "../Assests/eraser.png";
-import line from "../Assests/line.png";
-import rectangle from "../Assests/rectangle.png";
-import circle from "../Assests/circle.png";
-import text from "../Assests/text.png";
+import {
+	ChevronDown,
+	Circle,
+	Eraser,
+	Minus,
+	Pencil,
+	RectangleHorizontal,
+} from 'lucide-react';
+import {
+	CIRCLE,
+	ERASER,
+	LINE,
+	PENCIL,
+	RECTANGLE,
+} from '../store/ToolbarProvider';
+import ColorPicker from './ColorPicker';
+import BrushSize from './BrushSize';
+import ToolbarButton from './ToolbarButton';
+import TextTool from './TextTool';
+import { useState } from 'react';
 
+const Toolbar = () => {
+	const [toggleToolbar, setToggleToolbar] = useState(true);
+	return (
+		<section className='fixed top-2 left-2 md:-translate-x-1/2 md:left-1/2 shadow-xl p-3 rounded-xl flex flex-col md:flex-row items-center justify-center gap-4 bg-white bg-opacity-10 backdrop-blur-sm z-10'>
+			<button
+				type='button'
+				title='toggle toolbar'
+				className='p-2'
+				onClick={() => setToggleToolbar((prev) => !prev)}>
+				<ChevronDown
+					className={`${
+						toggleToolbar
+							? 'rotate-180 md:rotate-90'
+							: 'md:-rotate-90'
+					}`}
+				/>
+			</button>
+			{toggleToolbar && (
+				<>
+					<ToolbarButton mode={PENCIL}>
+						<Pencil />
+					</ToolbarButton>
+					<ToolbarButton mode={ERASER}>
+						<Eraser />
+					</ToolbarButton>
+					<ToolbarButton mode={LINE}>
+						<Minus />
+					</ToolbarButton>
+					<ToolbarButton mode={RECTANGLE}>
+						<RectangleHorizontal />
+					</ToolbarButton>
+					<ToolbarButton mode={CIRCLE}>
+						<Circle />
+					</ToolbarButton>
+					<TextTool />
+					<ColorPicker />
+					<BrushSize />
+				</>
+			)}
+		</section>
+	);
+};
 
-function Toolbar({
-    tool,
-    setTool,
-    color,
-    setColor,
-    brushSize,
-    setBrushSize,
-    fontSize,
-    setFontSize,
-   
-
- }){
-        
-
-
-    
-
-   
-    
-    return (
-      <div className="p-2 bg-gray-200 flex space-x-3">
-        <button className='btn' onClick={() => setTool("pencil")}><img className='h-8 w-8, md:h-10 w-10' src={pencil} alt='pencil'/></button>
-        <button className='btn' onClick={() => setTool("eraser")}><img className='h-8 w-8,md:h-10 w-10' src={eraser} alt='eraser'/></button>
-        <button className='btn' onClick={() => setTool("line")}><img className='h-8 w-8,md:h-10 w-10' src={line} alt='line'/></button>
-        <button className='btn' onClick={() => setTool("rectangle")}><img className='h-8 w-8,md:h-10 w-10' src={rectangle} alt='rectangle'/></button>
-        <button className='btn' onClick={() => setTool("circle")}><img className='h-8 w-8,md:h-10 w-10' src={circle} alt='circle'/></button>
-        <button className='btn' onClick={() => setTool("text")}><img className='h-8 w-8,md:h-10 w-10' src={text} alt='text'/></button>
-       
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          className='h-10'
-        />
-        <input
-          type="range"
-          min="1"
-          max="50"
-          value={brushSize}
-          onChange={(e) => setBrushSize(e.target.value)}
-          className='slider'
-        />
-        {tool === "text" && (
-          <input
-            type="number"
-            min="10"
-            max="100"
-            name='number'
-            value={fontSize}
-            onChange={(e) => setFontSize(e.target.value)}
-          />
-        )} 
-    
-      </div>
-    );
-  }
-  
-  export default Toolbar;
+export default Toolbar;
