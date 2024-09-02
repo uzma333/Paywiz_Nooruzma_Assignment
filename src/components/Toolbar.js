@@ -28,12 +28,12 @@ function Toolbar({
     
     return (
       <div className="p-2 bg-gray-200 flex space-x-3">
-        <button className='btn' onClick={() => setTool("pencil")}><img className='h-8 w-8' src={pencil} alt='pencil'/></button>
-        <button className='btn' onClick={() => setTool("eraser")}><img className='h-8 w-8' src={eraser} alt='eraser'/></button>
-        <button className='btn' onClick={() => setTool("line")}><img className='h-8 w-8' src={line} alt='line'/></button>
-        <button className='btn' onClick={() => setTool("rectangle")}><img className='h-8 w-8' src={rectangle} alt='rectangle'/></button>
-        <button className='btn' onClick={() => setTool("circle")}><img className='h-8 w-8' src={circle} alt='circle'/></button>
-        <button className='btn' onClick={() => setTool("text")}><img className='h-8 w-8' src={text} alt='text'/></button>
+        <button className='btn' onClick={() => setTool("pencil")}><img className='h-8 w-8, md:h-10 w-10' src={pencil} alt='pencil'/></button>
+        <button className='btn' onClick={() => setTool("eraser")}><img className='h-8 w-8,md:h-10 w-10' src={eraser} alt='eraser'/></button>
+        <button className='btn' onClick={() => setTool("line")}><img className='h-8 w-8,md:h-10 w-10' src={line} alt='line'/></button>
+        <button className='btn' onClick={() => setTool("rectangle")}><img className='h-8 w-8,md:h-10 w-10' src={rectangle} alt='rectangle'/></button>
+        <button className='btn' onClick={() => setTool("circle")}><img className='h-8 w-8,md:h-10 w-10' src={circle} alt='circle'/></button>
+        <button className='btn' onClick={() => setTool("text")}><img className='h-8 w-8,md:h-10 w-10' src={text} alt='text'/></button>
        
         <input
           type="color"
