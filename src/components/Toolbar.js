@@ -54,6 +54,7 @@ function Toolbar({
             type="number"
             min="10"
             max="100"
+            name='number'
             value={fontSize}
             onChange={(e) => setFontSize(e.target.value)}
           />
